@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "53257a6c00a0f377fc4f40e3cd8b7255",
+    "content-hash": "e439ff949f44372cbc4b48404cba9e2d",
     "packages": [
         {
             "name": "amphp/aerys",
@@ -1045,6 +1045,74 @@
                 "php"
             ],
             "time": "2017-03-05T18:23:57+00:00"
+        },
+        {
+            "name": "pre/async",
+            "version": "0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/preprocess/pre-async.git",
+                "reference": "748b7298feb236af4227339f3c69a2b002cc3d93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/preprocess/pre-async/zipball/748b7298feb236af4227339f3c69a2b002cc3d93",
+                "reference": "748b7298feb236af4227339f3c69a2b002cc3d93",
+                "shasum": ""
+            },
+            "require": {
+                "pre/plugin": "^0.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2017-03-26T07:29:32+00:00"
+        },
+        {
+            "name": "pre/class-accessors",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/preprocess/pre-class-accessors.git",
+                "reference": "8ff745f0e2d0ba604fec40e8a48a1b0cc8716bef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/preprocess/pre-class-accessors/zipball/8ff745f0e2d0ba604fec40e8a48a1b0cc8716bef",
+                "reference": "8ff745f0e2d0ba604fec40e8a48a1b0cc8716bef",
+                "shasum": ""
+            },
+            "require": {
+                "pre/plugin": "^0.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/bootstrap.php",
+                    "src/expanders.php"
+                ],
+                "psr-4": {
+                    "Pre\\ClassAccessors\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2017-03-24T14:39:08+00:00"
         },
         {
             "name": "pre/plugin",

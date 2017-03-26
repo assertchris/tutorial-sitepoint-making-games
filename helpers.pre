@@ -1,21 +1,15 @@
 <?php
 
-use Amp\Coroutine;
+async function mix($path) {
+    $manifest = yield Amp\File\get(
+        .."/public/mix-manifest.json"
+    );
 
-function mix($path) {
-    $generator = () => {
-        $manifest = yield Amp\File\get(
-            .."/public/mix-manifest.json"
-        );
+    $manifest = json_decode($manifest, true);
 
-        $manifest = json_decode($manifest, true);
+    if (isset($manifest[$path])) {
+        return $manifest[$path];
+    }
 
-        if (isset($manifest[$path])) {
-            return $manifest[$path];
-        }
-
-        throw new Exception("{$path} not found");
-    };
-
-    return new Coroutine($generator());
+    throw new Exception("{$path} not found");
 }

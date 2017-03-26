@@ -7,6 +7,8 @@ use Aerys\Response;
 use Aerys\Websocket;
 use Aerys\Websocket\Endpoint;
 use Aerys\Websocket\Message;
+use App\Model\FarmModel;
+use App\Model\PatchModel;
 
 class GameSocket implements Websocket
 {
@@ -39,18 +41,50 @@ class GameSocket implements Websocket
         $this->connections[$clientId] = $address;
     }
 
+    private $farms = [];
+
     public function onData(int $clientId,
         Message $message)
     {
         $body = yield $message;
 
-        $this->endpoint->broadcast($body);
+        if ($body === "new-farm") {
+            $patches = [];
+
+            $farm = new FarmModel(10, 10,
+                function (PatchModel $patch) use (&$patches) {
+                    array_push($patches, [
+                        "x" => $patch->x,
+                        "y" => $patch->y,
+                        "wet" => $patch->wet,
+                        "type" => $patch->type,
+                    ]);
+                }
+            );
+
+            yield $farm->createPatches();
+
+            $payload = json_encode([
+                "farm" => [
+                    "width" => $farm->width,
+                    "height" => $farm->height,
+                ],
+                "patches" => $patches,
+            ]);
+
+            yield $this->endpoint->send(
+                $payload, $clientId
+            );
+
+            $this->farms[$clientId] = $farm;
+        }
     }
 
     public function onClose(int $clientId,
         int $code, string $reason)
     {
         unset($this->connections[$clientId]);
+        unset($this->farms[$clientId]);
     }
 
     public function onStop()

@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Model;
+
+use Closure;
+
+class FarmModel
+{
+    private $width
+    {
+        get { return $this->width; }
+    }
+
+    private $height
+    {
+        get { return $this->height; }
+    }
+
+    private $onGrowth
+    {
+        get { return $this->onGrowth; }
+    }
+
+    private $patches
+    {
+        get { return $this->patches; }
+    }
+
+    public function __construct(int $width = 10,
+        int $height = 10, Closure $onGrowth)
+    {
+        $this->width = $width;
+        $this->height = $height;
+        $this->onGrowth = $onGrowth;
+    }
+
+    public async function createPatches()
+    {
+        $patches = [];
+
+        for ($i = 0; $i < $this->width; $i++) {
+            $this->patches[$i] = [];
+
+            for ($j = 0; $j < $this->height; $j++) {
+                $this->patches[$i][$j] = $patches[] =
+                    new PatchModel($i, $j);
+            }
+        }
+
+        foreach ($patches as $patch) {
+            $growth = $patch->start(
+                $this->width,
+                $this->height,
+                $this->patches
+            );
+
+            if ($growth) {
+                $closure = $this->onGrowth;
+                $result = $closure($patch);
+
+                if ($result instanceof Coroutine) {
+                    yield $result;
+                }
+            }
+        }
+    }
+}

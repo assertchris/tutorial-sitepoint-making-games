@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Model;
+
+class PatchModel
+{
+    private $x
+    {
+        get { return $this->x; }
+    }
+
+    private $y
+    {
+        get { return $this->y; }
+    }
+
+    public function __construct(int $x, int $y)
+    {
+        $this->x = $x;
+        $this->y = $y;
+    }
+
+    private $started = false;
+
+    private $wet {
+        get { return $this->wet ?: false; }
+    };
+
+    private $type {
+        get { return $this->type ?: "dirt"; }
+    };
+
+    public function start(int $width, int $height,
+        array $patches)
+    {
+        if ($this->started) {
+            return false;
+        }
+
+        if (random_int(0, 100) < 90) {
+            return false;
+        }
+
+        $this->started = true;
+        $this->type = "weed";
+
+        return true;
+    }
+}

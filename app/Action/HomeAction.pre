@@ -7,13 +7,16 @@ use Aerys\Response;
 
 class HomeAction
 {
-    public function __invoke(Request $request, Response $response)
+    public function __invoke(Request $request,
+        Response $response)
     {
-        $path = yield mix("/js/app.js");
+        $js = yield mix("/js/app.js");
+        $css = yield mix("/css/app.css");
 
         $response->end("
+            <link rel='stylesheet' href='{$css}' />
             <div class='app'></div>
-            <script src='{$path}'></script>
+            <script src='{$js}'></script>
         ");
     }
 }

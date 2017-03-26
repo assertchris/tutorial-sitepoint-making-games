@@ -8,7 +8,9 @@
         "amphp/parallel": "dev-master",
         "league/container": "^2.2",
         "league/plates": "^3.3",
-        "pre/short-closures": "^0.4.0"
+        "pre/short-closures": "^0.4.0",
+        "pre/class-accessors": "^0.4.0",
+        "pre/async": "^0.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0"

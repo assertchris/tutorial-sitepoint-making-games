@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import Component from "./component"
+import Farm from "./farm"
 
 ReactDOM.render(
-    <Component />,
+    <Farm />,
     document.querySelector(".app")
 )
