@@ -1,0 +1,6 @@
+node_modules
+vendor
+.env
+config.php
+app/**/*.php
+routes/**/*.php

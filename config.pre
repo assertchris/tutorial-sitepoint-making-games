@@ -1,0 +1,15 @@
+<?php
+
+$host = new Aerys\Host();
+$host->expose("*", 8080);
+
+$host->use($router = Aerys\router());
+$host->use($root = Aerys\root(.."/public"));
+
+$web = process .."/routes/web.pre";
+$web($router);
+
+$api = process .."/routes/api.pre";
+$api($router);
+
+process .."/helpers.pre";

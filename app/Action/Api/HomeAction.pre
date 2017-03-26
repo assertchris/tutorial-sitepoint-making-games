@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Action\Api;
+
+use Aerys\Request;
+use Aerys\Response;
+
+class HomeAction
+{
+    public function __invoke(Request $request, Response $response)
+    {
+        $response->end("hello world");
+    }
+}

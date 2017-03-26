@@ -1,0 +1,10 @@
+<?php
+
+use Aerys\Router;
+use App\Action\Api\HomeAction;
+
+return (Router $router) => {
+    $router->route(
+        "GET", "/api", new HomeAction
+    );
+};

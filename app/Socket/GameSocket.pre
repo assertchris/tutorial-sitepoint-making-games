@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Socket;
+
+use Aerys\Request;
+use Aerys\Response;
+use Aerys\Websocket;
+use Aerys\Websocket\Endpoint;
+use Aerys\Websocket\Message;
+
+class GameSocket implements Websocket
+{
+    private $endpoint;
+    private $connections = [];
+
+    public function onStart(Endpoint $endpoint)
+    {
+        $this->endpoint = $endpoint;
+    }
+
+    public function onHandshake(Request $request,
+        Response $response)
+    {
+        $origin = $request->getHeader("origin");
+
+        if ($origin !== "http://127.0.0.1:8080") {
+            $response->setStatus(403);
+            $response->end("<h1>origin not allowed</h1>");
+            return null;
+        }
+
+        $info = $request->getConnectionInfo();
+
+        return $info["client_addr"];
+    }
+
+    public function onOpen(int $clientId, $address)
+    {
+        $this->connections[$clientId] = $address;
+    }
+
+    public function onData(int $clientId,
+        Message $message)
+    {
+        $body = yield $message;
+
+        $this->endpoint->broadcast($body);
+    }
+
+    public function onClose(int $clientId,
+        int $code, string $reason)
+    {
+        unset($this->connections[$clientId]);
+    }
+
+    public function onStop()
+    {
+        // nothing to see here...
+    }
+}

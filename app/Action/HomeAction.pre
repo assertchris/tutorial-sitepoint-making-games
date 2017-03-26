@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Action;
+
+use Aerys\Request;
+use Aerys\Response;
+
+class HomeAction
+{
+    public function __invoke(Request $request, Response $response)
+    {
+        $path = yield mix("/js/app.js");
+
+        $response->end("
+            <div class='app'></div>
+            <script src='{$path}'></script>
+        ");
+    }
+}

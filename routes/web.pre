@@ -1,0 +1,15 @@
+<?php
+
+use Aerys\Router;
+use App\Action\HomeAction;
+use App\Socket\GameSocket;
+
+return (Router $router) => {
+    $router->route(
+        "GET", "/", new HomeAction
+    );
+
+    $router->route(
+        "GET", "/ws", Aerys\websocket(new GameSocket)
+    );
+};
